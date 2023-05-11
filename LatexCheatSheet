@@ -1,0 +1,249 @@
+\documentclass{article}
+\usepackage{listings} % for formatting code
+\usepackage{color} 
+\usepackage[a4paper, total={6in, 8in}]{geometry} 
+
+% Colors for code
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Code settings
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\footnotesize,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+keepspaces=true,
+numbers=left,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Scikit-learn Cheat Sheet}
+\author{Akolzina Diana}
+\date{11/05/2023}
+
+\begin{document}
+\pagecolor{backcolour}
+\color{black}% set the default colour to white
+\maketitle{}
+\section{Introduction}
+Scikit-learn, often abbreviated as sklearn, is a widely used open-source machine learning library in Python. It provides a comprehensive set of tools for data preprocessing, model selection, feature extraction, and evaluation. Sklearn was initially released in 2007 and has since become one of the most popular libraries for machine learning tasks due to its simplicity, versatility, and extensive documentation. It offers a range of algorithms and utilities for tasks such as classification, regression, clustering, and dimensionality reduction. Sklearn is built on top of other popular scientific computing libraries, such as NumPy and SciPy, and integrates seamlessly with them. With its user-friendly interface, sklearn has democratized machine learning, making it accessible to both beginners and experts. Its rich functionality and extensive community support have made it an essential tool in the data science ecosystem.
+
+\section{General}
+This section imports the scikit-learn library, which will be used for data preprocessing, model creation, and evaluation.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+import sklearn
+\end{lstlisting}
+
+\section{Preprocessing}
+
+This section demonstrates how to standardize features by removing the mean and scaling to unit variance. The StandardScaler function standardizes the dataset's features.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.preprocessing import StandardScaler
+
+Create a StandardScaler instance
+scaler = StandardScaler()
+
+Fit the scaler to the data and transform the data
+scaled_data = scaler.fit_transform(data)
+\end{lstlisting}
+
+\section{Data Splitting}
+In this section, we split our dataset into a training set and a testing set. The training set will be used to train our model, and the testing set will be used to evaluate its performance. We're using a test size of 20\(\%\) of the total dataset.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.model_selection import train_test_split
+
+Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+\end{lstlisting}
+
+\section{Feature Selection}
+This section demonstrates the use of univariate feature selection to improve estimator accuracy scores or boost performance on high-dimensional datasets. In this example, we use chi2 as our scoring function and select the best 5 features.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.feature_selection import SelectKBest, chi2
+
+Create a SelectKBest instance to select features according to the k highest scores
+selector = SelectKBest(chi2, k=5)
+
+Fit the selector to the data and transform the data
+selected_data = selector.fit_transform(X, y)
+\end{lstlisting}
+\vspace{1em}
+Remember to replace 'X' and 'y' with your feature set and target variable, respectively, and 'data' with your dataset. The 'random-state' parameter in 'train-test-split' function is used for reproducing your problem the same every time it runs. If it's not provided, the system will use a random state that could change each time you run the code.
+
+
+
+
+\section{Clustering}
+This section shows how to perform KMeans clustering using scikit-learn. Clustering is an unsupervised machine learning method used to group similar instances together. In this example, we are grouping the instances into 3 clusters.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.cluster import KMeans
+
+Create a KMeans instance with 3 clusters
+kmeans = KMeans(n_clusters=3, random_state=0)
+
+Fit the model to the data
+kmeans.fit(X)
+\end{lstlisting}
+
+\section{Dimensionality Reduction}
+This section demonstrates Principal Component Analysis (PCA), a technique used to reduce the dimensionality of datasets. This is particularly useful when dealing with datasets with a large number of features. Here, we reduce the dimensionality to 2.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.decomposition import PCA
+
+Create a PCA instance with 2 components
+pca = PCA(n_components=2)
+
+Fit the PCA model to the data and apply the dimensionality reduction
+X_pca = pca.fit_transform(X)
+\end{lstlisting}
+
+\section{Model Selection and Training}
+This section demonstrates how to select and train a machine learning model using scikit-learn. In this example, we use Logistic Regression, which is a classification algorithm often used for binary classification problems.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.linear_model import LogisticRegression
+
+Create a Logistic Regression instance
+model = LogisticRegression()
+
+Fit the model to the training data
+model.fit(X_train, y_train)
+\end{lstlisting}
+
+\section{Regression}
+This section shows how to apply Linear Regression, a simple yet effective regression machine learning algorithm. The model is fitted to the data 'X' and the target 'y'.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.linear_model import LinearRegression
+
+Create a Linear Regression model and fit it to the data
+reg = LinearRegression().fit(X, y)
+\end{lstlisting}
+
+Again, remember to replace 'X' and 'y' with your feature set and target variable, respectively. 'X-train' and 'yt-rain' should be your training feature set and target variable, respectively. The 'random-state' parameter in the 'KMeans' function is used for reproducing your problem the same every time it runs. If it's not provided, the system will use a random state that could change each time you run the code.
+\section{Ensemble Learning}
+This section demonstrates how to use ensemble learning techniques like Random Forest Classifier. Ensemble learning methods use multiple learning algorithms to obtain better predictive performance.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.ensemble import RandomForestClassifier
+
+Create a Random Forest Classifier instance with a max depth of 2
+clf = RandomForestClassifier(max_depth=2, random_state=0)
+
+Fit the classifier to the data
+clf.fit(X, y)
+\end{lstlisting}
+
+\section{Neural Networks}
+This section demonstrates how to use a multi-layer perceptron (MLP), a type of neural network, for classification tasks.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.neural_network import MLPClassifier
+
+Create a MLP classifier with specified parameters
+clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+
+Fit the classifier to the data
+clf.fit(X, y)
+\end{lstlisting}
+
+\section{Support Vector Machines}
+This section shows how to use Support Vector Machines (SVM), a powerful and flexible class of supervised algorithms for both classification and regression.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn import svm
+
+Create a SVC instance
+clf = svm.SVC()
+
+Fit the model to the data
+clf.fit(X, y)
+\end{lstlisting}
+
+\section{Cross Validation}
+This section demonstrates how to use cross-validation to estimate the expected level of fit of a model to a data set that is independent of the data that were used to train the model.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.model_selection import cross_val_score
+
+Compute cross-validated metrics
+scores = cross_val_score(clf, X, y, cv=5)
+\end{lstlisting}
+
+\section{Grid Search}
+This section shows how to implement grid search, an approach to parameter tuning that methodically builds and evaluates a model for each combination of algorithm parameters specified in a grid.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.model_selection import GridSearchCV
+
+Define the parameter values that should be searched
+parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
+
+Create a SVC instance
+svc = svm.SVC()
+
+Create a GridSearchCV instance
+clf = GridSearchCV(svc, parameters)
+
+Fit the model to the data
+clf.fit(X, y)
+\end{lstlisting}
+
+\section{Pipelines}
+This section demonstrates how to assemble several steps that can be cross-validated together while setting different parameters.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from sklearn.pipeline import make_pipeline
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.preprocessing import Binarizer
+
+Create a pipeline that bins the data and then applies Naive Bayes
+make_pipeline(Binarizer(), MultinomialNB())
+\end{lstlisting}
+
+\section{Saving Models}
+This section shows how to save a trained model for later use without needing to retrain. Here we use joblib's dump function to save the model.
+\vspace{1em}
+\begin{lstlisting}[language=Python]
+from joblib import dump, load
+
+Save the model to a file
+dump(clf, 'filename.joblib')
+\end{lstlisting}
+\vspace{1em}
+Again, remember to replace 'X' and 'y' with your feature set and target variable, respectively. The 'random-state' parameter in the 'RandomForestClassifier', 'MLPClassifier' and 'GridSearchCV' functions is used for reproducing your problem the same every time it
+
+\section{Points to remember}
+\begin{enumerate}
+  \item Data Preprocessing: Sklearn expects well-prepared data. Make sure to handle missing values, scale or normalize features, and encode categorical variables appropriately before feeding the data into sklearn models. Utilize sklearn's preprocessing modules such as Imputer, StandardScaler, and OneHotEncoder to streamline these preprocessing steps.
+  
+  \item Model Selection and Evaluation: Choose the appropriate model for your task by considering factors such as the type of problem, the nature of the data, and computational requirements. Sklearn provides a variety of algorithms with different strengths and weaknesses. It is crucial to evaluate the model's performance using appropriate evaluation metrics and cross-validation techniques to avoid overfitting and assess generalization ability.
+  
+  \item Hyperparameter Tuning: Sklearn models have various hyperparameters that control their behavior. Perform hyperparameter tuning using techniques like grid search or random search to find the optimal combination of hyperparameters that yield the best model performance. Utilize sklearn's GridSearchCV or RandomizedSearchCV to automate this process.
+  
+  \item Feature Selection and Dimensionality Reduction: Sklearn offers feature selection and dimensionality reduction techniques to handle high-dimensional data or remove irrelevant features. Feature selection methods such as SelectKBest and SelectFromModel help identify the most informative features, while dimensionality reduction techniques like Principal Component Analysis (PCA) and t-SNE can capture the underlying structure of the data.
+  
+  \item Pipeline and Serialization: Build efficient and reproducible workflows using sklearn's pipeline functionality. Pipelines allow you to chain multiple preprocessing steps and models together seamlessly. Additionally, make sure to serialize trained models using sklearn's joblib or pickle modules. This enables you to save the trained models to disk and reload them for later use, avoiding the need to retrain the models from scratch.
+  
+\end{enumerate}
+\end{document}
